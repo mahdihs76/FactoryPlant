@@ -16,4 +16,8 @@ public class Utils {
         formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
         return formatter.format(date);
     }
+
+    public static long generateId(){
+        return System.currentTimeMillis();
+    }
 }

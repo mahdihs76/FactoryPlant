@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static utils.Constants.WAIT_FOR_CLIENT;
+
 /**
  * Created by mahdihs76 on 10/9/18.
  */
@@ -17,7 +19,8 @@ public class FindClientThread extends Thread {
     private FindClientListener listener;
     private boolean isActive;
 
-    public FindClientThread(ServerSocket serverSocket, FindClientListener listener) {
+    public FindClientThread(ServerSocket serverSocket,
+                            FindClientListener listener) {
         this.serverSocket = serverSocket;
         this.listener = listener;
         this.isActive = true;
@@ -27,8 +30,9 @@ public class FindClientThread extends Thread {
     public void run() {
         while (isActive) {
             try {
+                Logger.log(WAIT_FOR_CLIENT);
                 Socket socket = serverSocket.accept();
-                Client client = new Client(socket);
+                Client client = Client.newInstance(socket);
                 listener.find(client);
             } catch (IOException e) {
                 Logger.o(e);

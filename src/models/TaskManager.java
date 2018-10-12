@@ -2,18 +2,18 @@ package models;
 
 import enums.TaskType;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by mahdihs76 on 10/9/18.
  */
 public class TaskManager {
     private static TaskManager instance = new TaskManager();
-    private ArrayList<Task> tasks;
+    private LinkedList<Task> tasks = new LinkedList<>();
 
     private TaskManager(){}
 
-    public static TaskManager newInstance() {
+    public static TaskManager getInstance() {
         return instance;
     }
 
@@ -30,7 +30,12 @@ public class TaskManager {
         tasks.add(new Task(10,"Kill the boss", TaskType.EXTREME));
     }
 
-    public Task getTask(int id) {
-        return tasks.get(id);
+    public void addTask(Task task){
+        tasks.add(task);
     }
+
+    public Task getLastTask(){
+        return tasks.removeLast();
+    }
+
 }
